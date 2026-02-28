@@ -1,3 +1,5 @@
+
+// app/(customer)/layout.tsx
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 
 export default function CustomerLayout({
@@ -7,7 +9,7 @@ export default function CustomerLayout({
 }) {
   return (
     <div className="min-h-screen bg-background">
-      header className="border-b p-4">
+      <header className="border-b p-4">
         <div className="max-w-4xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">TASKERS</h1>
           <ThemeToggle />
