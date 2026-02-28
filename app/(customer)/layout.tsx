@@ -1,4 +1,3 @@
-
 // app/(customer)/layout.tsx
 import { ThemeToggle } from '@/components/shared/theme-toggle'
 
