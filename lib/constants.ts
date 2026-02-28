@@ -1,0 +1,7 @@
+export const DISPATCH_RADIUS_MILES = parseInt(process.env.DISPATCH_RADIUS_MILES || '10')
+export const DISPATCH_OFFER_TTL_SECONDS = parseInt(process.env.DISPATCH_OFFER_TTL_SECONDS || '90')
+export const ARRIVAL_GEO_RADIUS_METERS = parseInt(process.env.ARRIVAL_GEO_RADIUS_METERS || '150')
+export const MAX_CONCURRENT_JOBS_PER_TASKER = parseInt(process.env.MAX_CONCURRENT_JOBS_PER_TASKER || '1')
+export const CANCELLATION_FEE_CENTS = 2000 // $20
+export const CANCELLATION_WINDOW_MINUTES = 3
+export const ADD_TIME_AUTO_END_MINUTES = 3
