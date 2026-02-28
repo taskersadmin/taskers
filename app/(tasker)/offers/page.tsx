@@ -25,7 +25,7 @@ export default function OffersPage() {
       method: 'POST',
       body: JSON.stringify({ jobId }),
     })
-    router.push(`/tasker/job/${jobId}`)
+    router.push(`/tasker/active-job/${jobId}`)
   }
 
   const handleDecline = async (jobId: string) => {
