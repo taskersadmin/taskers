@@ -1,13 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const body = await req.json();
+    const body = await request.json();
     
     const job = await prisma.job.create({
       data: {
-        ...body,
+        serviceType: body.serviceType,
+        customerName: body.customerName,
+        customerPhone: body.customerPhone,
+        customerEmail: body.customerEmail || null,
+        address: body.address || 'TBD',
+        description: body.description || 'TBD',
         lat: 40.7128,
         lng: -74.0060,
         status: 'DRAFT',
@@ -17,22 +22,28 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(job);
   } catch (error) {
+    console.error('Error creating job:', error);
     return NextResponse.json({ error: 'Failed to create job' }, { status: 500 });
   }
 }
 
-export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get('id');
-  
-  if (id) {
-    const job = await prisma.job.findUnique({
-      where: { id },
-      include: { tasker: true },
-    });
-    return NextResponse.json(job);
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    
+    if (id) {
+      const job = await prisma.job.findUnique({
+        where: { id },
+        include: { tasker: true },
+      });
+      return NextResponse.json(job);
+    }
+    
+    const jobs = await prisma.job.findMany();
+    return NextResponse.json(jobs);
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
   }
-  
-  const jobs = await prisma.job.findMany();
-  return NextResponse.json(jobs);
 }
